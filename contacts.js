@@ -20,11 +20,19 @@ async function listContacts() {
 
 async function getContactById(contactId) {
   const conatacts = await parsedContacts();
-  const findContact = conatacts.find((contact) => contact.id === contactId);
-  await fs.writeFile(contactsPath, JSON.stringify(findContact, null, 4));
+  const findContact = conatacts.find(
+    (contact) => contact.id === String(contactId)
+  );
+  console.log(findContact);
 }
 
-function removeContact(contactId) {}
+async function removeContact(contactId) {
+  const remove = await parsedContacts();
+  const updremove = remove.filter(
+    (contact) => contact.id !== String(contactId)
+  );
+  await fs.writeFile(contactsPath, JSON.stringify(updremove, null, 4));
+}
 
 async function addContact(name, email, phone) {
   const id = nanoid();
