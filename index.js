@@ -7,27 +7,35 @@ const {
 
 const argv = require("yargs").argv;
 
-function invokeAction({ action, id, name, email, phone }) {
-  switch (action) {
-    case "list":
-      listContacts();
-      break;
+const readline = require("readline");
+const rl = readline.createInterface({
+  input: process.stdin, // ввод из стандартного потока
+  output: process.stdout, // вывод в стандартный поток
+});
 
-    case "get":
-      getContactById(id);
-      break;
+async function invokeAction({ action, id, name, email, phone }) {
+  rl.question("choice action: ", (action) => {
+    switch (action) {
+      case "list":
+        listContacts();
+        break;
 
-    case "add":
-      addContact(name, email, phone);
-      break;
+      case "get":
+        getContactById(id);
+        break;
 
-    case "remove":
-      removeContact(id);
-      break;
+      case "add":
+        addContact(name, email, phone);
+        break;
 
-    default:
-      console.warn("\x1B[31m Unknown action type!");
-  }
+      case "remove":
+        removeContact(id);
+        break;
+
+      default:
+        console.warn("\x1B[31m Unknown action type!");
+    }
+  });
 }
 
 invokeAction(argv);
