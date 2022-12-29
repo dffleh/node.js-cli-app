@@ -12,7 +12,7 @@ async function parsedContacts() {
 
 async function listContacts() {
   try {
-    console.log(await parsedContacts());
+    return await parsedContacts();
   } catch (error) {
     consol.warn(error);
   }
@@ -23,7 +23,7 @@ async function getContactById(contactId) {
   const findContact = conatacts.find(
     (contact) => contact.id === String(contactId)
   );
-  console.log(findContact);
+  return findContact;
 }
 
 async function removeContact(contactId) {
